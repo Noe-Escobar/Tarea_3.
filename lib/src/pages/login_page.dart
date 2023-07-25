@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:tarea_3/src/shared/constantes.dart';
 import 'package:tarea_3/src/widgets/input_form.dart';
@@ -23,7 +21,7 @@ class LoginPage extends StatelessWidget {
             ),
             const Image(
               image: AssetImage('assets/imageUser.png'),
-              width: 200,
+              width: 100,
               fit: BoxFit.cover,
             ),
             const SizedBox(
@@ -69,11 +67,21 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){ Navigator.pushNamed(context, Rutas.inicio.name);},
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          getInputValue(context);
+        },
+        child: const Text('Iniciar'),
       ),
     );
   }
 
-  
+  getInputValue(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      Navigator.pushNamed(context, Rutas.inicio.name);
+    } else {
+      const snackBar=  SnackBar(content: Text('Datos Incorrectos'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 }
